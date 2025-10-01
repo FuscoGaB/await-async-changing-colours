@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Number</title>
+</head>
+<body>
+    <h2>È un numero primo?</h2>
+    <input type = "text" id = "number">
+    <button onclick = "numberRilevator()">Scopri</button>
+    <p id = "solution">Calcolando...</p>
+
+    <script>
+        const solution = document.getElementById("solution");
+        let isCalculating = false;
+        const colors = ["red", "green", "blue", "orange", "purple", "yellow"];
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function changeColorLoop() {
+            let i = 0;
+            while (changingColors) {
+                solution.style.color = colors[i % colors.length];
+                i++;
+                await delay(200);
+            }
+        }
+        
+        async function numberRilevator() {
+            const numberInput = document.getElementById("number").value;
+
+            const number = parseInt(numberInput);
+
+            if (isNaN(number) || number < 2) {
+                solution.innerHTML = "Inserisci un numero intero maggiore o uguale a 2";
+                solution.style.color = black;
+                return;
+            }
+
+            changingColors = true;
+            changeColorLoop();
+            await delay(5000);
+
+            let prime = true;
+            for (let i = 2; i < number; i++) {
+                if (number % i == 0) {
+                    prime = false;
+                    break;
+                }
+                await delay(50);
+            }
+
+            changingColors = false;
+
+            let answer = prime ? "e' primo" : "non e' primo";
+            solution.innerHTML = `Il numero che hai inserito ${answer}`;
+            solution.style.color = prime ? "green" : "red";
+        }
+    </script>
+</body>
+</html>
